@@ -1,13 +1,18 @@
 const {transports, info} = require('winston');
 const winston = require('winston');
 const {createLogger, format, transport} = winston;
-const {combine, colorize,simple,json,prettyPrint,timestamp} = format;
+const {combine, colorize,timestamp,printf} = format;
+
+
+const logFormat = printf(({level, message, timestamp})=>{
+    return `[${timestamp}]: ${level} ${message}`
+})
 
 const Logger = createLogger({
     format: combine(
             timestamp({format: 'YYYY-MM-DD HH:MM:SS'}),
             colorize(),
-            simple()
+            logFormat
     ),
     transports: [
         new transports.Console()
