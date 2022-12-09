@@ -1,6 +1,5 @@
 const {devLogger, prodLogger} = require('./Loggers')
-
-
+require("dotenv").config()
 const env = process.env.NODE_ENV
 let Logger = null;
 
@@ -10,12 +9,9 @@ if (env === "dev") {
       Logger = prodLogger()
 }
 
-// module.export = logger
+module.export = Logger
 
-
-
-
-Logger.error('SERVER:something went wrong')
+Logger.error(new Error('SERVER:something went wrong'))
 Logger.warn('SERVER:something went wrong')
 Logger.info('SERVER:something went wrong')
 //Logger.debug('SERVER:something went wrong')
